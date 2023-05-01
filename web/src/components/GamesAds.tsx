@@ -55,6 +55,7 @@ export function GamesAds() {
           return (
             <div key={game.id} className="keen-slider__slide rounded-lg">
               <GameBanner
+                gameId={game.id}
                 bannerUrl={game.bannerUrl}
                 title={game.title}
                 adsCount={game._count.ads}
