@@ -124,8 +124,8 @@ export function CreateAdModal() {
             <div className="flex flex-col gap-2 flex-1">
               <label htmlFor="hourStart">Qual horario?</label>
               <div className="grid grid-cols-2 gap-2">
-                <Input id="hourStart" name="hourStart" type="time" placeholder="De" />
-                <Input id="hourEnd" name="hourEnd" type="time" placeholder="Até" />
+                <Input id="hourStart" name="hourStart" type="time" placeholder="De" customClass="px-3"/>
+                <Input id="hourEnd" name="hourEnd" type="time" placeholder="Até" customClass="px-3"/>
               </div>
             </div>
           </div>
