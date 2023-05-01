@@ -11,9 +11,12 @@ datasource db {
 }
 
 model Game {
-  id        String @id @default(uuid())
-  title     String
-  bannerUrl String
+  id          String  @id @default(uuid())
+  title       String
+  bannerUrl   String
+  categories  String
+  description String
+  platforms   String?
 
   ads Ad[]
 }

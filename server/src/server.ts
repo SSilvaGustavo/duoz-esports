@@ -28,6 +28,32 @@ app.get("/games", async (req, res) => {
   return res.json(games);
 });
 
+app.get("/games/:id", async (req, res) => {
+  const gameId = req.params.id
+
+  const game = await prisma.game.findUnique({
+    select: {
+      id: true,
+      title: true,
+      bannerUrl: true,
+      categories: true,
+      description: true,
+      platforms: true,
+      ads: true,
+      _count: {
+        select: {
+          ads: true,
+        }
+      }
+    },
+    where: {
+      id: gameId,
+    },
+  });
+
+  return res.json(game);
+})
+
 app.post("/games/:id/ads", async (req, res) => {
   const gameId = req.params.id;
   const body = req.body;
@@ -62,6 +88,7 @@ app.get("/games/:id/ads", async (req, res) => {
       hourStart: true,
       hourEnd: true,
       useVoiceChannel: true,
+      createdAt: true,
     },
     where: {
       gameId,
