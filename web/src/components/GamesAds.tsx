@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GameBanner } from "./GameBanner";
 import axios from "axios";
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import { Carets } from "./Carets";
+import { AppContext } from "./Context/AppContext";
 
 interface Game {
   id: string;
@@ -19,6 +20,8 @@ export function GamesAds() {
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const { pageLoaded } = useContext(AppContext)
+
   const [sliderRef, instanceRef] = useKeenSlider(
     {
       initial: 0,
@@ -28,6 +31,7 @@ export function GamesAds() {
       },
       created() {
         setLoaded(true)
+        instanceRef.current?.update()
       },
     });
   
@@ -39,8 +43,8 @@ export function GamesAds() {
   }, []);
 
   return (
-    <div className="w-full flex items-center gap-4 mt-16 
-      animate-[fade-in-down_0.5s_ease-in-out_0.5s_both]"
+    <div className={`w-full flex items-center gap-4 mt-16 
+      ${pageLoaded ? '' : 'animate-[fade-in-down_0.5s_ease-in-out_0.5s_both]'}`}
     >
       {loaded && instanceRef.current && (
         <Carets

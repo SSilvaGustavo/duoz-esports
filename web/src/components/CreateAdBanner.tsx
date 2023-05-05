@@ -1,10 +1,13 @@
 import { MagnifyingGlassPlus } from "phosphor-react";
 import * as Dialog from '@radix-ui/react-dialog';
+import { useContext } from "react";
+import { AppContext } from "./Context/AppContext";
 
 export function CreateAdBanner() {
+  const { pageLoaded } = useContext(AppContext)
   return (
-    <div className="pt-1 bg-neon-gradient self-stretch rounded-lg mt-8 overflow-hidden animate-gradient-x 
-      animate-[fade-in-top_0.5s_ease-in-out_both_0.5s]"
+    <div className={`pt-1 bg-neon-gradient self-stretch rounded-lg mt-8 overflow-hidden animate-gradient-x 
+      ${pageLoaded ? '' : 'animate-[fade-in-top_0.5s_ease-in-out_both_0.5s]'}`}
     >
       <div className="bg-space-700 px-8 py-6 flex justify-between items-center">
         <div>
