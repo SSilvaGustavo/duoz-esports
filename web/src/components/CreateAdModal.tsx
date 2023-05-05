@@ -3,6 +3,8 @@ import { useEffect, useState, FormEvent } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
 import { Input } from "./Form/Input";
@@ -17,7 +19,7 @@ interface Game {
 export function CreateAdModal() {
   const [games, setGames] = useState<Game[]>([]);
   const [weekDays, setWeekDays] = useState<string[]>([]);
-  const [useVoiceChannel, setUseVoiceChannel] = useState<boolean>(false)
+  const [useVoiceChannel, setUseVoiceChannel] = useState<boolean>(false);
 
   useEffect(() => {
     axios("http://localhost:3333/games").then((response) => {
@@ -31,6 +33,7 @@ export function CreateAdModal() {
     const formData = new FormData(event.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
 
+    const toastLoading = toast.loading("Criando...")
     try {
       await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
         name: data.name,
@@ -41,10 +44,9 @@ export function CreateAdModal() {
         hourEnd: data.hourEnd,
         useVoiceChannel: useVoiceChannel
     })
-
-      alert('Anúncio criado com sucesso')
+    toast.update(toastLoading, {render: "Anúncio criado", type: "success", isLoading: false, autoClose: 2000})
     } catch (error) {
-      alert('Erro ao criar o anúncio')
+      toast.update(toastLoading, {render: "Houve um erro ao criar o anúncio, tente mais tarde", type: "error", isLoading: false, autoClose: 2000})
     }
   }
 
@@ -52,8 +54,9 @@ export function CreateAdModal() {
     <Dialog.Portal>
       <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
       <Dialog.Content
-        className="fixed w-[480px] bg-[#2A2634] py-8 px-10 text-white top-1/2 left-1/2 
-            -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg shadow-black/25"
+        className="fixed w-[480px] bg-space-700 py-8 px-10 text-white top-1/2 left-1/2 
+            -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg shadow-black/25
+            animate-contentShow"
       >
         <Dialog.Title className="text-3xl font-black">
           Publique um anúncio
@@ -98,25 +101,25 @@ export function CreateAdModal() {
             <div className="flex flex-col gap-2">
               <label htmlFor="weekDays">Quando voce joga?</label>
               <ToggleGroup.Root type="multiple" className="grid grid-cols-4 gap-4" value={weekDays} onValueChange={setWeekDays}>
-                <ToggleGroup.Item value="0" className={`w-8 h-8 rounded ${weekDays.includes('0') ? 'bg-violet-500' : 'bg-zinc-900'}`} title="Domingo">
+                <ToggleGroup.Item value="0" className={`w-8 h-8 rounded ${weekDays.includes('0') ? 'bg-space-400' : 'bg-zinc-900'}`} title="Domingo">
                   D
                 </ToggleGroup.Item>
-                <ToggleGroup.Item value="1" className={`w-8 h-8 rounded ${weekDays.includes('1') ? 'bg-violet-500' : 'bg-zinc-900'}`} title="Segunda">
+                <ToggleGroup.Item value="1" className={`w-8 h-8 rounded ${weekDays.includes('1') ? 'bg-space-400' : 'bg-zinc-900'}`} title="Segunda">
                   S
                 </ToggleGroup.Item>
-                <ToggleGroup.Item value="2" className={`w-8 h-8 rounded ${weekDays.includes('2') ? 'bg-violet-500' : 'bg-zinc-900'}`} title="Terça">
+                <ToggleGroup.Item value="2" className={`w-8 h-8 rounded ${weekDays.includes('2') ? 'bg-space-400' : 'bg-zinc-900'}`} title="Terça">
                   T
                 </ToggleGroup.Item>
-                <ToggleGroup.Item value="3" className={`w-8 h-8 rounded ${weekDays.includes('3') ? 'bg-violet-500' : 'bg-zinc-900'}`} title="Quarta">
+                <ToggleGroup.Item value="3" className={`w-8 h-8 rounded ${weekDays.includes('3') ? 'bg-space-400' : 'bg-zinc-900'}`} title="Quarta">
                   Q
                 </ToggleGroup.Item>
-                <ToggleGroup.Item value="4" className={`w-8 h-8 rounded ${weekDays.includes('4') ? 'bg-violet-500' : 'bg-zinc-900'}`} title="Quinta">
+                <ToggleGroup.Item value="4" className={`w-8 h-8 rounded ${weekDays.includes('4') ? 'bg-space-400' : 'bg-zinc-900'}`} title="Quinta">
                   Q
                 </ToggleGroup.Item>
-                <ToggleGroup.Item value="5" className={`w-8 h-8 rounded ${weekDays.includes('5') ? 'bg-violet-500' : 'bg-zinc-900'}`} title="Sexta">
+                <ToggleGroup.Item value="5" className={`w-8 h-8 rounded ${weekDays.includes('5') ? 'bg-space-400' : 'bg-zinc-900'}`} title="Sexta">
                   S
                 </ToggleGroup.Item>
-                <ToggleGroup.Item value="6" className={`w-8 h-8 rounded ${weekDays.includes('6') ? 'bg-violet-500' : 'bg-zinc-900'}`} title="Sábado">
+                <ToggleGroup.Item value="6" className={`w-8 h-8 rounded ${weekDays.includes('6') ? 'bg-space-400' : 'bg-zinc-900'}`} title="Sábado">
                   S
                 </ToggleGroup.Item>
               </ToggleGroup.Root>
@@ -151,13 +154,13 @@ export function CreateAdModal() {
           <footer className="mt-4 flex justify-end gap-4">
             <Dialog.Close
               type="button"
-              className="bg-zinc-500 px-5 h-12 rounded-md font-semibold hover:bg-zinc-600"
+              className="bg-zinc-500 px-5 h-12 rounded-md font-semibold hover:bg-zinc-600 transition-colors"
             >
               Cancelar
             </Dialog.Close>
             <button
               type="submit"
-              className="flex items-center gap-3 bg-violet-500 px-5 h-12 rounded-md font-semibold hover:bg-violet-600"
+              className="flex items-center gap-3 px-5 h-12 rounded-md font-semibold bg-space-400 hover:bg-space-500 transition-colors"
             >
               <GameController size={24} />
               Encontrar duo
@@ -165,6 +168,18 @@ export function CreateAdModal() {
           </footer>
         </form>
       </Dialog.Content>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </Dialog.Portal>
   );
 }
