@@ -9,6 +9,13 @@ module.exports = {
       'sans': ['Inter', 'sans-serif']
     },
     extend: {
+      colors: {
+        'space': {
+          '400': '#6791A2',
+          '500': '#46ACAF',
+          '700': '#2B2D42',
+        }
+      },
       backgroundImage: {
         galaxy: "url('/background-galaxy.png')",
         'neon-gradient': 'linear-gradient(90deg,#FCA08B 1.08%, #9572FC 34.08%, #43E7AD 80.94%, #E1D55D 94.57%)',
