@@ -3,8 +3,10 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 export function CreateAdBanner() {
   return (
-    <div className="pt-1 bg-duo-gradient self-stretch rounded-lg mt-8 overflow-hidden animate-gradient-x">
-      <div className="bg-[#2A2634] px-8 py-6 flex justify-between items-center">
+    <div className="pt-1 bg-neon-gradient self-stretch rounded-lg mt-8 overflow-hidden animate-gradient-x 
+      animate-[fade-in-top_0.5s_ease-in-out_both_0.5s]"
+    >
+      <div className="bg-space-700 px-8 py-6 flex justify-between items-center">
         <div>
           <strong className="text-2xl text-white font-black block">
             Não encontrou seu duo?
@@ -13,7 +15,7 @@ export function CreateAdBanner() {
             Publique um anúncio para encontrar novos players!
           </span>
         </div>
-        <Dialog.Trigger className="flex items-center gap-3 py-3 px-4 text-white rounded bg-violet-500 hover:bg-violet-600 transition-colors">
+        <Dialog.Trigger className="flex items-center gap-3 py-3 px-4 text-white rounded bg-space-400 hover:bg-space-500 transition-colors">
           <MagnifyingGlassPlus size={24} />
           Publicar Anúncio
         </Dialog.Trigger>

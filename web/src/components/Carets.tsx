@@ -8,10 +8,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Carets(props: ButtonProps) {
-  const { left, leftCaretCustom, rightCaretCustom } = props;
+  const { left, leftCaretCustom, rightCaretCustom, ...rest } = props;
 
   return (
-    <button {...props}>
+    <button {...rest}>
       {props.left ? (
         <CaretLeft
           className={`w-12 h-12 text-sky-200 ml-4 ${props.leftCaretCustom}`}

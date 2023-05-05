@@ -19,13 +19,13 @@ export function GameAd() {
   const navigate = useNavigate();
 
   useEffect(() => {
-      axios(`http://localhost:3333/games/${gameId}`).then((response) => {
-        setGame(response.data);
-      });
+    axios(`http://localhost:3333/games/${gameId}`).then((response) => {
+      setGame(response.data);
+    });
 
-      axios(`http://localhost:3333/games/${gameId}/ads`).then((response) => {
-        setAdInfos(response.data);
-      });
+    axios(`http://localhost:3333/games/${gameId}/ads`).then((response) => {
+      setAdInfos(response.data);
+    });
   }, []);
 
   return (
@@ -42,7 +42,7 @@ export function GameAd() {
           platforms={`${game?.platforms}`}
         />
 
-      <div className="flex flex-col w-full place-items-center text-white gap-2 mt-24 mb-4">
+      <div className="flex flex-col w-full place-items-center text-white gap-2 mt-24 mb-4 animate-fade-in-forward">
         <h1 className="text-4xl font-bold">Bora duo?</h1>
         <span className="text-gray-400 text-xl">Conecte-se e comece a jogar!</span>
       </div>
@@ -64,10 +64,10 @@ export function GameAd() {
           );
         })
       :
-        <div className="flex flex-col w-full justify-center place-items-center text-gray-200 gap-4 mt-6">
+        <div className="flex flex-col w-full justify-center place-items-center text-gray-200 gap-4 mt-6 animate-fade-in-forward">
           <span className="text-xl">Infelizmente ainda não temos anúncios, seja o primeiro a criar um :)</span>
           <Dialog.Root>
-            <Dialog.Trigger className="flex items-center gap-3 py-3 px-4 text-white rounded bg-violet-500 hover:bg-violet-600 transition-colors">
+            <Dialog.Trigger className="flex items-center gap-3 py-3 px-4 text-white rounded bg-space-400 hover:bg-space-500 transition-colors">
             <GameController size={24} />
             Publicar Anúncio
             </Dialog.Trigger>

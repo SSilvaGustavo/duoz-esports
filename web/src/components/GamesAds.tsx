@@ -39,7 +39,9 @@ export function GamesAds() {
   }, []);
 
   return (
-    <div className="w-full flex items-center gap-4 mt-16">
+    <div className="w-full flex items-center gap-4 mt-16 
+      animate-[fade-in-down_0.5s_ease-in-out_0.5s_both]"
+    >
       {loaded && instanceRef.current && (
         <Carets
           left={true}
