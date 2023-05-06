@@ -8,6 +8,9 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { CreateAdModal } from "../components/CreateAdModal";
 import { GameController } from "phosphor-react";
 
+import 'keen-slider/keen-slider.min.css';
+import { useKeenSlider } from 'keen-slider/react';
+
 interface GameProps extends SingleGameProps {}
 
 interface GameAdsProps extends SingleAdProps {}
@@ -18,13 +21,31 @@ export function GameAd() {
   const { gameId } = useParams<{ gameId: string }>();
   const navigate = useNavigate();
 
+  const [loaded, setLoaded] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const [sliderRef, instanceRef] = useKeenSlider(
+    {
+      initial: 0,
+      slides: { origin: 'auto', perView: 4.2, spacing: 26},
+      slideChanged(slider) {
+        setCurrentSlide(slider.track.details.rel)
+      },
+      created() {
+        setLoaded(true)
+        instanceRef.current?.update()
+      },
+    });
+
   useEffect(() => {
     axios(`http://localhost:3333/games/${gameId}`).then((response) => {
       setGame(response.data);
+      instanceRef.current?.update()
     });
 
     axios(`http://localhost:3333/games/${gameId}/ads`).then((response) => {
       setAdInfos(response.data);
+      instanceRef.current?.update()
     });
   }, []);
 
@@ -46,21 +67,35 @@ export function GameAd() {
         <h1 className="text-4xl font-bold">Bora duo?</h1>
         <span className="text-gray-400 text-xl">Conecte-se e comece a jogar!</span>
       </div>
-
-    <div className="flex gap-8 w-full">
+      <div className="w-full flex">
+      {loaded && instanceRef.current && adInfos.length > 4 && (
+        <Carets
+          className="animate-[fade-in-forward_0.5s_ease-in-out_0.8s_both]"
+          left={true}
+          disabled={currentSlide === 0}
+          onClick={(e: any) =>
+            e.stopPropagation() || instanceRef.current?.prev()
+          }
+          leftCaretCustom={currentSlide === 0 ? 'opacity-30' : 'opacity-100 hover:text-sky-400 transition-colors'}
+        />
+      )}
+      <div ref={sliderRef} className="keen-slider">
+    <div className={`flex gap-4 w-full ${adInfos.length > 4 ? "" : "justify-center"}`}>
       {adInfos.length ?
         adInfos?.map((ad) => {
           return (
+            <div className="keen-slider__slide min-w-fit max-w-fit">
               <GameAdsBox
                 key={ad.id}
                 id={ad.id}
                 name={ad.name}
                 yearsPlaying={ad.yearsPlaying}
                 hourStart={ad.hourStart}
-                weekDays={ad.weekDays}
+                weekDays={ad.weekDays.sort((a, b) => a - b)}
                 hourEnd={ad.hourEnd}
                 useVoiceChannel={ad.useVoiceChannel}
               />
+            </div>
           );
         })
       :
@@ -75,6 +110,18 @@ export function GameAd() {
           </Dialog.Root>
         </div>
     }
+      </div>
+      </div>
+      {loaded && instanceRef.current && adInfos.length > 4 && (
+        <Carets
+          className="animate-[fade-in-forward_0.5s_ease-in-out_0.8s_both]"
+          disabled={ currentSlide === instanceRef.current.slides.length - 4 }
+          onClick={(e: any) =>
+            e.stopPropagation() || instanceRef.current?.next()
+          }
+          rightCaretCustom={currentSlide === instanceRef.current.slides.length - 4 ? 'opacity-30' : 'opacity-100 hover:text-sky-400 transition-colors'}
+        />
+      )}
       </div>
     </div>
   );
