@@ -6,10 +6,12 @@ import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import { Check, GameController } from "phosphor-react";
 
 import { Input } from "./Form/Input";
-
-import { Check, GameController } from "phosphor-react";
+import { Select } from "./Form/Select";
+import * as SelectUi from "@radix-ui/react-select";
+import { useNavigate } from "react-router-dom";
 
 interface Game {
   id: string;
@@ -20,6 +22,7 @@ export function CreateAdModal() {
   const [games, setGames] = useState<Game[]>([]);
   const [weekDays, setWeekDays] = useState<string[]>([]);
   const [useVoiceChannel, setUseVoiceChannel] = useState<boolean>(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios("http://localhost:3333/games").then((response) => {
@@ -33,7 +36,7 @@ export function CreateAdModal() {
     const formData = new FormData(event.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
 
-    const toastLoading = toast.loading("Criando...")
+    const toastLoading = toast.loading("Criando Anúncio...")
     try {
       await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
         name: data.name,
@@ -44,9 +47,14 @@ export function CreateAdModal() {
         hourEnd: data.hourEnd,
         useVoiceChannel: useVoiceChannel
     })
-    toast.update(toastLoading, {render: "Anúncio criado", type: "success", isLoading: false, autoClose: 2000})
+      toast.update(toastLoading, {render: "Anúncio criado com sucesso, você sera redirecionado para a página do game escolhido", type: "success", isLoading: false, autoClose: 3200})
+
+      setTimeout(() => {
+        navigate(`/games/${data.game}/ads`)
+      },4000)
+
     } catch (error) {
-      toast.update(toastLoading, {render: "Houve um erro ao criar o anúncio, tente mais tarde", type: "error", isLoading: false, autoClose: 2000})
+      toast.update(toastLoading, {render: "Houve um erro ao criar o anúncio, tente mais tarde", type: "error", isLoading: false, autoClose: 3200})
     }
   }
 
@@ -66,20 +74,22 @@ export function CreateAdModal() {
             <label htmlFor="game" className="font-semibold">
               Qual o game
             </label>
-            <select
-              id="game"
-              name="game"
-              className="bg-zinc-900 py-3 px-4 rounded text-sm placeholder:text-zinc-500"
-              defaultValue=""
-            >
-              <option disabled value="">Selecione o game que deseja jogar</option>
-
-              {games.map(game => {
-                return <option key={game.id} value={game.id}>{game.title}</option>
-              })}
-            </select>
           </div>
-
+          <Select>
+            <SelectUi.Label className="flex justify-center items-center pb-1 text-zinc-500">Games</SelectUi.Label>
+            {
+              games.map(games => {
+                return (
+                <SelectUi.Item key={games.id} value={games.id} className="flex items-center relative h-6 px-[13px] cursor-default hover:bg-space-400">
+                  <SelectUi.ItemIndicator className="absolute right-6 inline-flex items-center justify-center text-green-500">
+                    <Check size={18} weight="bold"/>
+                  </SelectUi.ItemIndicator>
+                  <SelectUi.ItemText>{games.title}</SelectUi.ItemText>
+                </SelectUi.Item>
+                )
+              })
+            }
+          </Select>
           <div className="flex flex-col gap-2">
             <label htmlFor="name">Seu nome (ou nickname)</label>
             <Input id="name" name="name" type="text" />

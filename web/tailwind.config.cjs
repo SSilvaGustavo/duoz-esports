@@ -29,7 +29,7 @@ module.exports = {
         'fade-in-right': 'fade-in-right 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) 0.5s both',
         'fade-in-right-back': 'fade-in-right-back 1s cubic-bezier(0.680, -0.550, 0.265, 1.550) 0.7s both',
         'fade-in-forward': 'fade-in-forward 0.5s cubic-bezier(0.680, -0.550, 0.265, 1.550) 0.3s both',
-        'contentShow': 'contentShow 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+        'contentShow': 'contentShow 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
       },
       keyframes: {
         'gradient-x': {
@@ -106,13 +106,13 @@ module.exports = {
         'contentShow': {
           '0%': {
             opacity: '0',
-            transform: 'translate(-50%, -48%) scale(0.96)'
+            transform: 'scale(0.96)'
           },
           '100%': {
             opacity: '1',
-            transform: 'translate(-50%, -50%) scale(1)'
+            transform: 'scale(1)'
           }
-        }
+        },
       }
     },
   },
