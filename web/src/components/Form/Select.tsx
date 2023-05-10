@@ -14,7 +14,7 @@ export function Select({ children }: { children: ReactNode }) {
       </SelectUi.Trigger>
 
       <SelectUi.Portal>
-        <SelectUi.Content className="overflow-hidden bg-zinc-900 rounded text-white animate-contentShow">
+        <SelectUi.Content className="overflow-hidden bg-zinc-900 rounded text-white animate-content-show">
           <SelectUi.ScrollUpButton className="flex justify-center items-center h-6 bg-zinc-900 cursor-default">
             <CaretUp />
           </SelectUi.ScrollUpButton>

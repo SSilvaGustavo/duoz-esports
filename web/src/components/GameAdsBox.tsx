@@ -23,7 +23,7 @@ export function GameAdsBox( props: SingleAdProps ) {
 
   const availableDays: string[] = props.weekDays.map(day => stringDays[day] ?? '') ?? [];
   return (
-    <div className="pt-1 self-stretch rounded-lg mt-8 overflow-hidden bg-neon-gradient animate-gradient-x animate-[fade-in-forward_0.5s_ease-in-out_0.6s_both]">
+    <div className="pt-1 self-stretch rounded-lg mt-8 overflow-hidden bg-neon-gradient animate-content-show-box">
       <div className="flex flex-col text-white w-64 bg-space-700 p-4 gap-2 rounded-md">
         <div className="flex flex-col">
           <span className="text-gray-400">Nome</span>
