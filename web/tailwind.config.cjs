@@ -29,6 +29,7 @@ module.exports = {
         'fade-in-right': 'fade-in-right 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) 0.5s both',
         'fade-in-right-back': 'fade-in-right-back 1s cubic-bezier(0.680, -0.550, 0.265, 1.550) 0.7s both',
         'fade-in-forward': 'fade-in-forward 0.5s cubic-bezier(0.680, -0.550, 0.265, 1.550) 0.3s both',
+        'fade-reverse': 'fade-out-top 0.5 cubic-bezier(0.455, 0.030, 0.515, 0.955) 8s both',
         'content-show': 'content-show 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
         'content-show-box': 'gradient-x 3s ease infinite, content-show 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both',
       },
@@ -114,6 +115,20 @@ module.exports = {
             transform: 'scale(1)'
           }
         },
+        'fade-out-top': {
+          '0%': {
+            opacity: '1',
+            transform: 'translateY(0)'
+          },
+          '70%': {
+            opacity: '1',
+            transform: 'translateY(-20px)'
+          },
+          '100%': {
+            opacity: '0',
+            transform: 'translateY(-50px)'
+          }
+        }
       }
     },
   },

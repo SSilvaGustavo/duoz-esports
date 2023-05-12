@@ -18,7 +18,7 @@ export function SingleGameAd(props: SingleGameProps) {
             categories?.map(category => {
               return (
                 <span key={category} className="px-2 py-1 h-fit bg-slate-800 text-white rounded-md text-sm text-center 
-                  animate-fade-in-forward">
+                  animate-fade-in-forward hover:bg-slate-700/90 transition-colors">
                     {category}
                 </span>
               )
