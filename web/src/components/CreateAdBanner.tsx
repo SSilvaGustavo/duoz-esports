@@ -1,10 +1,17 @@
 import { MagnifyingGlassPlus } from "phosphor-react";
 import * as Dialog from '@radix-ui/react-dialog';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "./Context/AppContext";
+import { CreateAdModal } from "./CreateAdModal";
 
-export function CreateAdBanner() {
+interface CreateAdBannerProps {
+  open: boolean;
+  setOpen:(value: boolean) => void
+}
+
+export function CreateAdBanner({ open, setOpen }: CreateAdBannerProps) {
   const { pageLoaded } = useContext(AppContext)
+
   return (
     <div className={`pt-1 bg-neon-gradient self-stretch rounded-lg mt-8 overflow-hidden animate-gradient-x 
       ${pageLoaded ? '' : 'animate-[fade-in-top_0.5s_ease-in-out_both_0.5s]'}`}
@@ -18,10 +25,14 @@ export function CreateAdBanner() {
             Publique um anúncio para encontrar novos players!
           </span>
         </div>
-        <Dialog.Trigger className="flex items-center gap-3 py-3 px-4 text-white rounded bg-space-400 hover:bg-space-500 transition-colors">
-          <MagnifyingGlassPlus size={24} />
-          Publicar Anúncio
-        </Dialog.Trigger>
+        <Dialog.Root open={open} onOpenChange={setOpen}>
+          <Dialog.Trigger className="flex items-center gap-3 py-3 px-4 text-white rounded bg-space-400 hover:bg-space-500 transition-colors">
+            <MagnifyingGlassPlus size={24} />
+            Publicar Anúncio
+          </Dialog.Trigger>
+
+          <CreateAdModal />
+      </Dialog.Root>
       </div>
     </div>
   );

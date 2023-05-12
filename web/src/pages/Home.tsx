@@ -9,7 +9,7 @@ import { AppContext } from '../components/Context/AppContext';
 import { useForm } from 'react-hook-form';
 
 export function Home() {
-  const { pageLoaded, isLoading } = useContext(AppContext)
+  const { pageLoaded, isLoading, isAdModalOpen, setIsAdModalOpen } = useContext(AppContext)
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export function Home() {
       </h1>
       <GamesAds />
       <Dialog.Root>
-        <CreateAdBanner />
+        <CreateAdBanner open={isAdModalOpen} setOpen={setIsAdModalOpen}/>
 
         <CreateAdModal />
       </Dialog.Root>

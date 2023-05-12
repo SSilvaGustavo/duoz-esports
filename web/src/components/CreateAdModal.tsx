@@ -65,7 +65,9 @@ export const CreateAdModal: React.FC = () => {
         hourEnd: data.hourEnd,
         useVoiceChannel
       });
-      toast.update(toastLoading, {render: "Anúncio criado com sucesso, você sera redirecionado para a página do game escolhido", type: "success", isLoading: false, autoClose: 3200})  
+      toast.update(toastLoading, {render: "Anúncio criado com sucesso, você sera redirecionado para a página do game escolhido", type: "success", isLoading: false, autoClose: 3200})
+      
+      handleCloseModal()
 
       setTimeout(() => {
         navigate(`/games/${data.game}/ads`)
@@ -76,6 +78,17 @@ export const CreateAdModal: React.FC = () => {
       toast.update(toastLoading, {render: "Houve um erro ao criar o anúncio, tente mais tarde", type: "error", isLoading: false, autoClose: 3200})
     }
   };
+
+  const handleCloseModal = () => {
+    reset()
+    setIsAdModalOpen(false)
+  }
+
+  useEffect(() => {
+    if (!isAdModalOpen) {
+      handleCloseModal()
+    }
+  }, [isAdModalOpen])
 
   return (
     <FormProvider {...methods}>
