@@ -17,11 +17,11 @@ app.use(cors({
 app.get("/games", async (req, res) => {
   const games = await prisma.game.findMany({
     include: {
-     _count: {
-      select: {
-        ads: true,
+      _count: {
+        select: {
+          ads: true,
+        }
       }
-     } 
     }
   });
 
@@ -58,7 +58,7 @@ app.post("/games/:id/ads", async (req, res) => {
   const gameId = req.params.id;
   const body = req.body;
 
-  
+
 
   const ad = await prisma.ad.create({
     data: {
