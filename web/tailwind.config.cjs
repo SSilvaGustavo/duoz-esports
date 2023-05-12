@@ -11,14 +11,19 @@ module.exports = {
     extend: {
       colors: {
         'space': {
+          '200': '#A2E5E8',
+          '300': '#5BDEE3',
           '400': '#6791A2',
           '500': '#46ACAF',
+          '600': '#3A8F92',
           '700': '#2B2D42',
+          '800': '#202132',
         }
       },
       backgroundImage: {
         galaxy: "url('/background-galaxy.png')",
         'neon-gradient': 'linear-gradient(90deg,#FCA08B 1.08%, #9572FC 34.08%, #43E7AD 80.94%, #E1D55D 94.57%)',
+        'text-error-gradient': 'linear-gradient(90deg,#A2E5E8 1.08%, #5BDEE3 100.0%)',
         'game-gradient': 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 67.08%)'
       },
       animation: {
@@ -31,7 +36,6 @@ module.exports = {
         'fade-in-forward': 'fade-in-forward 0.5s cubic-bezier(0.680, -0.550, 0.265, 1.550) 0.3s both',
         'fade-reverse': 'fade-out-top 0.5 cubic-bezier(0.455, 0.030, 0.515, 0.955) 8s both',
         'content-show': 'content-show 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-        'content-show-box': 'gradient-x 3s ease infinite, content-show 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both',
       },
       keyframes: {
         'gradient-x': {
@@ -128,7 +132,7 @@ module.exports = {
             opacity: '0',
             transform: 'translateY(-50px)'
           }
-        }
+        },
       }
     },
   },
