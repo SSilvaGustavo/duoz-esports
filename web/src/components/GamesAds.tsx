@@ -5,6 +5,7 @@ import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import { Carets } from "./Carets";
 import { AppContext } from "./Context/AppContext";
+import { Loading } from "./Loading";
 
 interface Game {
   id: string;
@@ -20,9 +21,9 @@ export function GamesAds() {
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const { pageLoaded } = useContext(AppContext)
+  const { pageLoaded, setIsLoading, isLoading } = useContext(AppContext)
 
-  const [sliderRef, instanceRef] = useKeenSlider(
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     {
       initial: 0,
       slides: { origin: 'auto', perView: 5.5, spacing: 15 },
@@ -38,6 +39,7 @@ export function GamesAds() {
   useEffect(() => {
     axios("http://localhost:3333/games").then((response) => {
       setGames(response.data);
+      setIsLoading(true);
       instanceRef.current?.update()
     });
   }, []);
@@ -69,6 +71,7 @@ export function GamesAds() {
             </div>
           )
         })}
+      <Loading size={38} load={isLoading}/>
       </div>
       {loaded && instanceRef.current && (
         <Carets
