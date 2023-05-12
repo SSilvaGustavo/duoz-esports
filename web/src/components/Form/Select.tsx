@@ -1,11 +1,21 @@
-import { CaretDown, CaretUp, Check, GameController } from "phosphor-react";
+import { CaretDown, CaretUp, Check } from "phosphor-react";
 import * as SelectUi from "@radix-ui/react-select";
-import { ReactNode, SelectHTMLAttributes } from "react";
+import { forwardRef } from "react";
+import { Game } from "../CreateAdModal";
 
-export function Select({ children }: { children: ReactNode }) {
+interface SelectGameProps {
+  value: string;
+  games: Game[];
+  onChange: () => void;
+  errorMessage?: string;
+}
+
+export const Select = forwardRef<HTMLDivElement, SelectGameProps>((props, ref) => {
+  const { value, games, onChange, errorMessage } = props;
+
   return (
-    <SelectUi.Root name="game"> 
-      <SelectUi.Trigger className="inline-flex items-center justify-between bg-zinc-900 py-3 px-4 rounded text-sm
+    <SelectUi.Root value={value} onValueChange={onChange}> 
+      <SelectUi.Trigger id="game" name="game" className="inline-flex items-center justify-between bg-zinc-900 py-3 px-4 rounded text-sm
        placeholder:text-zinc-500">
         <SelectUi.Value placeholder="Selecione o game que deseja jogar..." />
         <SelectUi.Icon>
@@ -19,12 +29,18 @@ export function Select({ children }: { children: ReactNode }) {
             <CaretUp />
           </SelectUi.ScrollUpButton>
           <SelectUi.Viewport className="p-1">
-            <SelectUi.Group>
-                { children }
-            </SelectUi.Group>
+            {games && games.map((game: Game)=> (
+              <SelectUi.Item value={game.id} key={game.id} ref={ref} className="flex items-center relative h-6 px-[13px] cursor-default hover:bg-space-400">
+                <SelectUi.ItemIndicator className="absolute right-6 inline-flex items-center justify-center text-green-500">
+                  <Check size={18} weight="bold"/>
+                </SelectUi.ItemIndicator>
+                <SelectUi.ItemText>{game.title}</SelectUi.ItemText>
+              </SelectUi.Item>
+            ))}
           </SelectUi.Viewport>
         </SelectUi.Content>
       </SelectUi.Portal>
+      {!!errorMessage && <span className="flex items-center gap-1 text-sm text-red-500 font-semibold">{errorMessage}</span>}
     </SelectUi.Root>
-  );
-}
+  )
+})
