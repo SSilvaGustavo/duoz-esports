@@ -2,12 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.ts",
   "engines": {
-    "node": "14.x"
+    "node": "18.x"
   },
   "scripts": {
-    "start": "node /src/server.ts",
+    "start": "tsnd --transpile-only src/server.ts",
     "build": "tsc",
     "dev": "tsnd --exit-child src/server.ts"
   },

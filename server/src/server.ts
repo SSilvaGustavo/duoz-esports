@@ -125,4 +125,7 @@ app.get("/ads/:id/discord", async (req, res) => {
   });
 });
 
-app.listen(process.env.PORT || 3333);
+app.listen({
+  host: '0.0.0.0',
+  port: process.env.PORT || 3333,
+});
