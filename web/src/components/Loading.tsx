@@ -1,4 +1,4 @@
-import { PacmanLoader } from "react-spinners"
+import { PacmanLoader } from "react-spinners";
 
 interface LoadingProps {
   size?: number;
@@ -7,8 +7,12 @@ interface LoadingProps {
 
 export const Loading = ({ size, load }: LoadingProps) => {
   return (
-    <div className={load ? `hidden` : `flex justify-center items-center w-full h-full`}>
-      <PacmanLoader size={size} color="#ffe737"/>
+    <div
+      className={
+        load ? `hidden` : `flex justify-center items-center w-full h-full`
+      }
+    >
+      <PacmanLoader size={size} color="#ffe737" />
     </div>
-  )
-}
+  );
+};

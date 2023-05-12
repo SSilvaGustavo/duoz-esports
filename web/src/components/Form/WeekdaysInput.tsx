@@ -1,4 +1,5 @@
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
+
 import { Control, FieldValues, Path, useController } from "react-hook-form";
 
 interface Day {
@@ -25,7 +26,7 @@ interface WeekdaysInputControlProps<T extends FieldValues = FieldValues> {
 export const WeekdaysInput = <T extends FieldValues = FieldValues>({
   name,
   control,
-  errorMessage
+  errorMessage,
 }: WeekdaysInputControlProps<T>): JSX.Element => {
   const {
     field: { value, onChange },
@@ -54,7 +55,11 @@ export const WeekdaysInput = <T extends FieldValues = FieldValues>({
         ))}
       </ToggleGroup.Root>
 
-      {!!errorMessage && <span className="w-48 flex items-center gap-1 text-sm text-red-500 font-semibold">{errorMessage}</span>}
+      {!!errorMessage && (
+        <span className="w-48 flex items-center gap-1 text-sm text-red-500 font-semibold">
+          {errorMessage}
+        </span>
+      )}
     </>
   );
 };

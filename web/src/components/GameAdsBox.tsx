@@ -1,9 +1,11 @@
 import axios from "axios";
-import { Headset } from "phosphor-react";
-import { useEffect, useState } from "react";
-import { DiscordBox, DiscordProps } from "./DiscordBox";
+import { useState } from "react";
+
 import * as Dialog from "@radix-ui/react-dialog";
 
+import { Headset } from "phosphor-react";
+
+import { DiscordBox } from "./DiscordBox";
 
 export interface SingleAdProps {
   id?: string;
@@ -15,8 +17,6 @@ export interface SingleAdProps {
   weekDays: number[];
   onConnect: () => void;
 }
-
-interface Discord extends DiscordProps {}
 
 interface Day {
   label: string;
@@ -34,13 +34,11 @@ export const stringDays: Day[] = [
 ];
 
 export function GameAdsBox(props: SingleAdProps) {
-  const [discordUsername, setDiscordUsername] = useState('');
-  
+  const [discordUsername, setDiscordUsername] = useState("");
+
   async function getDiscordUser() {
     axios
-      .get(
-        `http://localhost:3333/ads/${props.id}/discord`
-      )
+      .get(`http://localhost:3333/ads/${props.id}/discord`)
       .then(({ data }) => setDiscordUsername(data.discord));
   }
 
@@ -86,14 +84,14 @@ export function GameAdsBox(props: SingleAdProps) {
         </div>
         <div className="flex justify-center">
           <Dialog.Root>
-            <Dialog.Trigger onClick={getDiscordUser} className="flex gap-2 place-items-center px-8 py-2 mt-4 font-semibold rounded-md bg-space-400 hover:bg-space-500 transition-all hover:scale-105">
+            <Dialog.Trigger
+              onClick={getDiscordUser}
+              className="flex gap-2 place-items-center px-8 py-2 mt-4 font-semibold rounded-md bg-space-400 hover:bg-space-500 transition-all hover:scale-105"
+            >
               <Headset size={16} weight="bold" />
               Conectar
             </Dialog.Trigger>
-            <DiscordBox
-              discord={discordUsername}
-              name={props.name}
-            />
+            <DiscordBox discord={discordUsername} name={props.name} />
           </Dialog.Root>
         </div>
       </div>

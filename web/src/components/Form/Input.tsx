@@ -15,7 +15,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         ref={ref}
         className={`bg-zinc-900 py-3 px-4 rounded text-sm max-h-12 placeholder:text-zinc-500  ${props.customClass}`}
       />
-      {!!errorMessage && <span className="flex items-center gap-1 text-sm text-red-500 font-semibold">{errorMessage}</span>}
+      {!!errorMessage && (
+        <span className="flex items-center gap-1 text-sm text-red-500 font-semibold">
+          {errorMessage}
+        </span>
+      )}
     </>
-  )
-})
+  );
+});

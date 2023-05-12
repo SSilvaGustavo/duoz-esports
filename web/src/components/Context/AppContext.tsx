@@ -6,7 +6,7 @@ interface AppContextProps {
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
   isAdModalOpen: boolean;
-  setIsAdModalOpen: (isAdModalOpen: boolean) => void
+  setIsAdModalOpen: (isAdModalOpen: boolean) => void;
 }
 
 export const AppContext = createContext<AppContextProps>({
@@ -24,8 +24,17 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [isAdModalOpen, setIsAdModalOpen] = useState(false);
 
   return (
-    <AppContext.Provider value={{ pageLoaded, setPageLoaded, isLoading, setIsLoading, isAdModalOpen, setIsAdModalOpen }}>
+    <AppContext.Provider
+      value={{
+        pageLoaded,
+        setPageLoaded,
+        isLoading,
+        setIsLoading,
+        isAdModalOpen,
+        setIsAdModalOpen,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
-}
+};

@@ -1,20 +1,24 @@
-import { MagnifyingGlassPlus } from "phosphor-react";
-import * as Dialog from '@radix-ui/react-dialog';
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "./Context/AppContext";
+
+import * as Dialog from "@radix-ui/react-dialog";
+
+import { MagnifyingGlassPlus } from "phosphor-react";
+
 import { CreateAdModal } from "./CreateAdModal";
 
 interface CreateAdBannerProps {
   open: boolean;
-  setOpen:(value: boolean) => void
+  setOpen: (value: boolean) => void;
 }
 
 export function CreateAdBanner({ open, setOpen }: CreateAdBannerProps) {
-  const { pageLoaded } = useContext(AppContext)
+  const { pageLoaded } = useContext(AppContext);
 
   return (
-    <div className={`pt-1 bg-neon-gradient self-stretch rounded-lg mt-8 overflow-hidden animate-gradient-x 
-      ${pageLoaded ? '' : 'animate-[fade-in-top_0.5s_ease-in-out_both_0.5s]'}`}
+    <div
+      className={`pt-1 bg-neon-gradient self-stretch rounded-lg mt-8 overflow-hidden animate-gradient-x 
+      ${pageLoaded ? "" : "animate-[fade-in-top_0.5s_ease-in-out_both_0.5s]"}`}
     >
       <div className="bg-space-700 px-8 py-6 flex justify-between items-center">
         <div>
@@ -32,7 +36,7 @@ export function CreateAdBanner({ open, setOpen }: CreateAdBannerProps) {
           </Dialog.Trigger>
 
           <CreateAdModal />
-      </Dialog.Root>
+        </Dialog.Root>
       </div>
     </div>
   );

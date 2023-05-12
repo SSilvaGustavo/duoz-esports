@@ -1,5 +1,6 @@
-import { CaretLeft, CaretRight } from "phosphor-react";
 import { ButtonHTMLAttributes } from "react";
+
+import { CaretLeft, CaretRight } from "phosphor-react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   left?: boolean;

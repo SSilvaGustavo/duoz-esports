@@ -1,32 +1,34 @@
-import * as Dialog from '@radix-ui/react-dialog';
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../components/Context/AppContext";
+
+import * as Dialog from "@radix-ui/react-dialog";
+
 import logoImg from "../assets/logo-duoz.svg";
-import piranhaPlant from "../assets/piranha-plant.gif"
+import piranhaPlant from "../assets/piranha-plant.gif";
+
 import { CreateAdBanner } from "../components/CreateAdBanner";
-import { CreateAdModal } from "../components/CreateAdModal";
 import { GamesAds } from "../components/GamesAds";
-import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../components/Context/AppContext';
-import { useForm } from 'react-hook-form';
 
 export function Home() {
-  const { pageLoaded, isLoading, isAdModalOpen, setIsAdModalOpen } = useContext(AppContext)
+  const { pageLoaded, isLoading, isAdModalOpen, setIsAdModalOpen } =
+    useContext(AppContext);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const hideImage = setTimeout(() => {
       setIsVisible(false);
-      return clearInterval(hideImage)
-    }, 8250)
+      return clearInterval(hideImage);
+    }, 8250);
 
     const showImage = setTimeout(() => {
       setIsVisible(true);
-      return clearInterval(showImage)
-    }, 16200)
+      return clearInterval(showImage);
+    }, 16200);
 
     const secondHideImage = setTimeout(() => {
       setIsVisible(false);
-      return clearInterval(secondHideImage)
-    }, 28650)
+      return clearInterval(secondHideImage);
+    }, 28650);
   }, []);
 
   return (
@@ -59,9 +61,7 @@ export function Home() {
       </h1>
       <GamesAds />
       <Dialog.Root>
-        <CreateAdBanner open={isAdModalOpen} setOpen={setIsAdModalOpen}/>
-
-        <CreateAdModal />
+        <CreateAdBanner open={isAdModalOpen} setOpen={setIsAdModalOpen} />
       </Dialog.Root>
     </div>
   );

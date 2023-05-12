@@ -1,7 +1,5 @@
 import * as z from 'zod';
 
-const hoursValidation = new RegExp("/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/")
-
 const discordValidation = new RegExp('^.{3,32}#[0-9]{4}$')
 
 export const createAdFormSchema = z.object({
@@ -14,12 +12,11 @@ export const createAdFormSchema = z.object({
       .min(3, { message: "O nickname desse possuir no mínimo 3 caracteres." }),
 
   yearsPlaying:
-  z
-    .string()
-    .nonempty("Informe quanto tempo você joga (Não tem problema ser zero :D)")
-    .refine((value) => parseInt(value, 10) >= 0, {
-      message: "Informe um número maior que zero"
-    }),
+    z.string()
+      .nonempty("Informe quanto tempo você joga (Não tem problema ser zero :D)")
+      .refine((value) => parseInt(value, 10) >= 0, {
+        message: "Informe um número maior que zero"
+      }),
 
   weekDays: z.array(
     z.number()
