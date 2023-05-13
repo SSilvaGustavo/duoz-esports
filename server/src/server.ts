@@ -76,7 +76,7 @@ app.post("/games/:id/ads", async (req, res) => {
   return res.json(ad);
 });
 
-app.post("/ad/games", async (req, res) => {
+app.post("/games", async (req, res) => {
   const body = req.body;
 
   const game = await prisma.game.create({
