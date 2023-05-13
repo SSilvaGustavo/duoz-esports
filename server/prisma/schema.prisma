@@ -6,18 +6,18 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Game {
-  id          String  @id @default(uuid())
+  id          String @id @default(uuid())
   title       String
   bannerUrl   String
   categories  String
   description String
-  platforms   String?
+  platforms   String
 
   ads Ad[]
 }
