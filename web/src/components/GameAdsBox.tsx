@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
@@ -6,6 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Headset } from "phosphor-react";
 
 import { DiscordBox } from "./DiscordBox";
+import { api } from "../Services/api";
 
 export interface SingleAdProps {
   id?: string;
@@ -37,8 +37,8 @@ export function GameAdsBox(props: SingleAdProps) {
   const [discordUsername, setDiscordUsername] = useState("");
 
   async function getDiscordUser() {
-    axios
-      .get(`http://localhost:3333/ads/${props.id}/discord`)
+    api
+      .get(`/ads/${props.id}/discord`)
       .then(({ data }) => setDiscordUsername(data.discord));
   }
 

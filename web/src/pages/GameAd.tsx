@@ -1,4 +1,3 @@
-import axios from "axios";
 import { AppContext } from "../components/Context/AppContext";
 import { useContext, useEffect, useState } from "react";
 
@@ -9,12 +8,13 @@ import { GameController } from "phosphor-react";
 
 import { SingleGameAd, SingleGameProps } from "../components/SingleGameAd";
 import { GameAdsBox, SingleAdProps } from "../components/GameAdsBox";
-import { Carets } from "../components/Carets";
+import { Carets } from "../components/Utils/Carets";
 import { CreateAdModal } from "../components/CreateAdModal";
 
-import { Loading } from "../components/Loading";
+import { Loading } from "../components/Utils/Loading";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import { api } from "../Services/api";
 
 interface GameProps extends SingleGameProps {}
 
@@ -43,13 +43,13 @@ export function GameAd() {
   });
 
   useEffect(() => {
-    axios(`http://localhost:3333/games/${gameId}`).then((response) => {
+    api.get(`/games/${gameId}`).then((response) => {
       setGame(response.data);
       setIsLoading(true);
       instanceRef.current?.update();
     });
 
-    axios(`http://localhost:3333/games/${gameId}/ads`).then((response) => {
+    api.get(`/games/${gameId}/ads`).then((response) => {
       setAdInfos(response.data);
       instanceRef.current?.update();
     });

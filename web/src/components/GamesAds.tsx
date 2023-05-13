@@ -1,13 +1,13 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "./Context/AppContext";
 
 import { GameBanner } from "./GameBanner";
-import { Carets } from "./Carets";
-import { Loading } from "./Loading";
+import { Carets } from "./Utils/Carets";
+import { Loading } from "./Utils/Loading";
 
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import { api } from "../Services/api";
 
 interface Game {
   id: string;
@@ -38,7 +38,7 @@ export function GamesAds() {
   });
 
   useEffect(() => {
-    axios("http://localhost:3333/games").then((response) => {
+    api.get("/games").then((response) => {
       setGames(response.data);
       setIsLoading(true);
       instanceRef.current?.update();

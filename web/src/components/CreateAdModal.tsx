@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from "./Context/AppContext";
 
@@ -18,6 +17,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createAdFormSchema } from "../validation/create-ad";
+import { api } from "../Services/api";
 
 export interface Game {
   id: string;
@@ -53,7 +53,7 @@ export const CreateAdModal: React.FC = () => {
   } = methods;
 
   useEffect(() => {
-    axios("http://localhost:3333/games").then((response) => {
+    api.get("/games").then((response) => {
       setGames(response.data);
     });
   }, []);
@@ -61,7 +61,7 @@ export const CreateAdModal: React.FC = () => {
   const handleCreateAd = async (data: CreateAdFormData) => {
     const toastLoading = toast.loading("Criando Anúncio...");
     try {
-      await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
+      await api.post(`/games/${data.game}/ads`, {
         game: data.game,
         name: data.name,
         yearsPlaying: Number(data.yearsPlaying),
