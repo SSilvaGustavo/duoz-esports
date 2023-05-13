@@ -14,7 +14,7 @@ import { CreateAdModal } from "../components/CreateAdModal";
 import { Loading } from "../components/Utils/Loading";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { api } from "../Services/api";
+import { api } from "../services/api";
 
 interface GameProps extends SingleGameProps {}
 

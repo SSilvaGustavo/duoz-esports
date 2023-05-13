@@ -16,8 +16,8 @@ import { WeekdaysInput } from "./Form/WeekdaysInput";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { createAdFormSchema } from "../Validation/create-ad";
-import { api } from "../Services/api";
+import { createAdFormSchema } from "../validation/create-ad";
+import { api } from "../services/api";
 
 export interface Game {
   id: string;
