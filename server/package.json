@@ -9,7 +9,8 @@
   "scripts": {
     "start": "tsnd --transpile-only src/server.ts",
     "build": "tsc",
-    "dev": "tsnd --exit-child src/server.ts"
+    "dev": "tsnd --exit-child src/server.ts",
+    "vercel-build": "npx prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
