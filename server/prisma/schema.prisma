@@ -23,7 +23,7 @@ model Game {
 }
 
 model Ad {
-  id              String   @id @default(uuid())
+  id              String  @id @default(uuid())
   gameId          String
   name            String
   yearsPlaying    Int
@@ -32,7 +32,6 @@ model Ad {
   hourStart       Int
   hourEnd         Int
   useVoiceChannel Boolean
-  createdAt       DateTime @default(now())
 
   game Game @relation(fields: [gameId], references: [id])
 }

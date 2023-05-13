@@ -102,13 +102,12 @@ app.get("/games/:id/ads", async (req, res) => {
       hourStart: true,
       hourEnd: true,
       useVoiceChannel: true,
-      createdAt: true,
     },
     where: {
       gameId,
     },
     orderBy: {
-      createdAt: 'desc'
+      yearsPlaying: 'desc'
     }
   })
 
