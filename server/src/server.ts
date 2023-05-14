@@ -105,9 +105,6 @@ app.get("/games/:id/ads", async (req, res) => {
     },
     where: {
       gameId,
-    },
-    orderBy: {
-      yearsPlaying: 'desc'
     }
   })
 
