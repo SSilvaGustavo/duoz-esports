@@ -38,7 +38,7 @@ export function GamesAds() {
   });
 
   useEffect(() => {
-    api.get("/games").then((response) => {
+    api.get<Game[]>("/games").then((response) => {
       setGames(response.data);
       setIsLoading(true);
       instanceRef.current?.update();

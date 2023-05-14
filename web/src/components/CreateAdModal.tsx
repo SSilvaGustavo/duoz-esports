@@ -52,7 +52,7 @@ export const CreateAdModal: React.FC = () => {
   } = methods;
 
   useEffect(() => {
-    api.get("/games").then((response) => {
+    api.get<Game[]>("/games").then((response) => {
       setGames(response.data);
     });
   }, []);

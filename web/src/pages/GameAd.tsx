@@ -43,13 +43,13 @@ export function GameAd() {
   });
 
   useEffect(() => {
-    api.get(`/games/${gameId}`).then((response) => {
+    api.get<GameProps>(`/games/${gameId}`).then((response) => {
       setGame(response.data);
       setIsLoading(true);
       instanceRef.current?.update();
     });
 
-    api.get(`/games/${gameId}/ads`).then((response) => {
+    api.get<GameAdsProps[]>(`/games/${gameId}/ads`).then((response) => {
       setAdInfos(response.data);
       instanceRef.current?.update();
     });
