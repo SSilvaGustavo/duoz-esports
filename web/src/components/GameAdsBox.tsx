@@ -4,8 +4,8 @@ import * as Dialog from "@radix-ui/react-dialog";
 
 import { Headset } from "phosphor-react";
 
-import { DiscordBox, DiscordProps } from "./DiscordBox";
-import { api } from "../services/api";
+import { DiscordBox } from "./DiscordBox";
+import { api } from "../Services/api";
 
 export interface SingleAdProps {
   id?: string;
@@ -38,7 +38,7 @@ export function GameAdsBox(props: SingleAdProps) {
 
   async function getDiscordUser() {
     api
-      .get<DiscordProps>(`/ads/${props.id}/discord`)
+      .get(`/ads/${props.id}/discord`)
       .then(({ data }) => setDiscordUsername(data.discord));
   }
 

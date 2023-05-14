@@ -17,7 +17,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createAdFormSchema } from "../validation/create-ad";
-import { api } from "../services/api";
+import { api } from "../Services/api";
 
 export interface Game {
   id: string;
@@ -34,8 +34,9 @@ export const CreateAdModal: React.FC = () => {
   const methods = useForm<CreateAdFormData>({
     resolver: zodResolver(createAdFormSchema),
     defaultValues: {
+      game: undefined,
       name: "",
-      yearsPlaying: "",
+      yearsPlaying: undefined,
       discord: "",
       weekDays: [],
       hourStart: "",
@@ -52,7 +53,7 @@ export const CreateAdModal: React.FC = () => {
   } = methods;
 
   useEffect(() => {
-    api.get<Game[]>("/games").then((response) => {
+    api.get("/games").then((response) => {
       setGames(response.data);
     });
   }, []);
@@ -65,7 +66,7 @@ export const CreateAdModal: React.FC = () => {
         name: data.name,
         yearsPlaying: Number(data.yearsPlaying),
         discord: data.discord,
-        weekDays: data.weekDays.sort(),
+        weekDays: data.weekDays.sort((a, b) => a - b),
         hourStart: data.hourStart,
         hourEnd: data.hourEnd,
         useVoiceChannel,
@@ -135,7 +136,7 @@ export const CreateAdModal: React.FC = () => {
                   value={field.value}
                   onChange={field.onChange}
                   games={games}
-                  errorMessage={errors.game && errors.game.message}
+                  errorMessage={errors.game?.message}
                 />
               )}
             />
@@ -145,7 +146,7 @@ export const CreateAdModal: React.FC = () => {
                 id="name"
                 type="text"
                 {...register("name")}
-                errorMessage={errors.name && errors.name.message}
+                errorMessage={errors.name?.message}
               />
             </div>
 
@@ -157,7 +158,7 @@ export const CreateAdModal: React.FC = () => {
                   type="number"
                   placeholder="Tudo bem ser zero :)"
                   {...register("yearsPlaying")}
-                  errorMessage={errors.yearsPlaying && errors.yearsPlaying.message}
+                  errorMessage={errors.yearsPlaying?.message}
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -167,7 +168,7 @@ export const CreateAdModal: React.FC = () => {
                   type="text"
                   placeholder="Usuario#0000"
                   {...register("discord")}
-                  errorMessage={errors.discord && errors.discord.message}
+                  errorMessage={errors.discord?.message}
                 />
               </div>
             </div>
@@ -183,7 +184,7 @@ export const CreateAdModal: React.FC = () => {
                 <WeekdaysInput
                   name="weekDays"
                   control={control}
-                  errorMessage={errors.weekDays && errors.weekDays.message}
+                  errorMessage={errors.weekDays?.message}
                 />
               </div>
               <div className="flex flex-col gap-2 flex-1">
@@ -195,7 +196,7 @@ export const CreateAdModal: React.FC = () => {
                     placeholder="De"
                     customClass="px-2"
                     {...register("hourStart")}
-                    errorMessage={errors.hourStart && errors.hourStart.message}
+                    errorMessage={errors.hourStart?.message}
                     className=""
                   />
                   <Input
@@ -204,7 +205,7 @@ export const CreateAdModal: React.FC = () => {
                     placeholder="Até"
                     customClass="px-2"
                     {...register("hourEnd")}
-                    errorMessage={errors.hourEnd && errors.hourEnd.message}
+                    errorMessage={errors.hourEnd?.message}
                   />
                 </div>
               </div>

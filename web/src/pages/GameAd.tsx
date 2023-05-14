@@ -14,7 +14,7 @@ import { CreateAdModal } from "../components/CreateAdModal";
 import { Loading } from "../components/Utils/Loading";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { api } from "../services/api";
+import { api } from "../Services/api";
 
 interface GameProps extends SingleGameProps {}
 
@@ -43,13 +43,13 @@ export function GameAd() {
   });
 
   useEffect(() => {
-    api.get<GameProps>(`/games/${gameId}`).then((response) => {
+    api.get(`/games/${gameId}`).then((response) => {
       setGame(response.data);
       setIsLoading(true);
       instanceRef.current?.update();
     });
 
-    api.get<GameAdsProps[]>(`/games/${gameId}/ads`).then((response) => {
+    api.get(`/games/${gameId}/ads`).then((response) => {
       setAdInfos(response.data);
       instanceRef.current?.update();
     });

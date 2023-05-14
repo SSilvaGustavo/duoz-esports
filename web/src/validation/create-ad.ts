@@ -4,7 +4,7 @@ const discordValidation = new RegExp('^.{3,32}#[0-9]{4}$')
 
 export const createAdFormSchema = z.object({
   game:
-    z.string({ required_error: "Selecione o jogo que deseja criar o anúncio" })
+    z.string({ required_error: "Selecione um jogo" })
       .uuid({ message: "UUID Invalido" }),
 
   name:
@@ -30,12 +30,10 @@ export const createAdFormSchema = z.object({
     .regex(discordValidation, { message: "Discord invalido, use este padrão: Usuário#0000" }),
 
   hourStart:
-    z.string({ required_error: "Informe o horário que voce começa a jogar" })
-      .nonempty("Selecione o horário de inicio"),
+    z.string({ required_error: "Informe o horário que voce começa a jogar" }).nonempty("Selecione o horário de inicio"),
 
   hourEnd:
-    z.string({ required_error: "Informe o horário que voce termina de jogar" })
-      .nonempty("Selecione o horário de termino"),
+    z.string({ required_error: "Informe o horário que voce termina de jogar" }).nonempty("Selecione o horário de termino"),
 })
 
 export const weekDaysSchema = z.array(z.string()).nonempty().refine((value) => {

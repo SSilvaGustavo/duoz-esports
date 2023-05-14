@@ -7,7 +7,7 @@ import { Loading } from "./Utils/Loading";
 
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { api } from "../services/api";
+import { api } from "../Services/api";
 
 interface Game {
   id: string;
@@ -38,7 +38,7 @@ export function GamesAds() {
   });
 
   useEffect(() => {
-    api.get<Game[]>("/games").then((response) => {
+    api.get("/games").then((response) => {
       setGames(response.data);
       setIsLoading(true);
       instanceRef.current?.update();
