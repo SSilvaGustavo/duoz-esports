@@ -15,7 +15,7 @@ import { CreateAdModal } from "../components/CreateAdModal";
 import { Loading } from "../components/Utils/Loading";
 import { KeenSliderOptions, useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { api } from "../Services/api";
+import { api } from "../services/api";
 
 interface GameProps extends SingleGameProps {}
 
@@ -105,7 +105,7 @@ export function GameAd() {
 
       {adInfos.length ? (
         <Fragment>
-          <div className="flex flex-col mt-10 mb-2 w-full place-items-center text-white gap-2 animate-fade-in-forward md:mt-24 md:mb-4">
+          <div className="flex flex-col mt-10 mb-2 w-full place-items-center text-white gap-2 animate-fade-in-forward md:mt-24 md:mb-4 z-10">
             <h1 className="text-3xl font-bold md:text-4xl">Bora duo?</h1>
             <span className="text-gray-400 text-lg md:text-xl">
               Conecte-se e comece a jogar!

@@ -5,7 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Headset } from "phosphor-react";
 
 import { DiscordBox } from "./DiscordBox";
-import { api } from "../Services/api";
+import { api } from "../services/api";
 
 export interface SingleAdProps {
   id?: string;
