@@ -42,18 +42,31 @@ export function GamesAds() {
         slides: { origin: "auto", perView: 5.5, spacing: 15 },
       },
     },
-    slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
+  };
+
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+    initial: 0,
+    breakpoints: {
+      "(max-width: 640px )": {
+        slides: { origin: "auto", perView: 1.5, spacing: 18 },
+      },
+      "(min-width: 768px )": {
+        slides: { origin: "auto", perView: 3.5, spacing: 18 },
+      },
+      "(min-width: 1024px )": {
+        slides: { origin: "auto", perView: 3.5, spacing: 15 },
+      },
+      "(min-width: 1280px )": {
+        slides: { origin: "auto", perView: 5.5, spacing: 15 },
+      },
     },
-    animationEnded(slider) {
+    slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
     created() {
       setLoaded(true);
     },
-  };
-
-  const [sliderRef, instanceRef] = useKeenSlider(sliderOptions);
+  });
 
   useEffect(() => {
     api.get("/games").then((response) => {
@@ -86,10 +99,7 @@ export function GamesAds() {
       <div ref={sliderRef} className="keen-slider">
         {games.map((game) => {
           return (
-            <div
-              key={game.id}
-              className="keen-slider__slide rounded-lg ease-in-out duration-150"
-            >
+            <div key={game.id} className="keen-slider__slide rounded-lg">
               <GameBanner
                 gameId={game.id}
                 bannerUrl={game.bannerUrl}
