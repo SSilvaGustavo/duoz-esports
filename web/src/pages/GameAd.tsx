@@ -13,7 +13,7 @@ import { Carets } from "../components/Utils/Carets";
 import { CreateAdModal } from "../components/CreateAdModal";
 
 import { Loading } from "../components/Utils/Loading";
-import { useKeenSlider } from "keen-slider/react";
+import { KeenSliderOptions, useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { api } from "../Services/api";
 
@@ -31,7 +31,7 @@ export function GameAd() {
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+  const sliderOptions: KeenSliderOptions = {
     initial: 0,
     breakpoints: {
       "(max-width: 640px )": {
@@ -52,9 +52,10 @@ export function GameAd() {
     },
     created() {
       setLoaded(true);
-      instanceRef.current?.update();
     },
-  });
+  };
+
+  const [sliderRef, instanceRef] = useKeenSlider(sliderOptions);
 
   useEffect(() => {
     api.get(`/games/${gameId}`).then((response) => {
@@ -68,6 +69,12 @@ export function GameAd() {
       instanceRef.current?.update();
     });
   }, []);
+
+  useEffect(() => {
+    instanceRef.current?.update({
+      ...sliderOptions,
+    });
+  }, [instanceRef, sliderOptions]);
 
   return (
     <div className="max-w-[1344px] mx-8 flex flex-col items-center my-10 md:my-20 xl:mx-auto">
@@ -129,7 +136,7 @@ export function GameAd() {
             >
               {adInfos?.map((ad) => (
                 <div
-                  className="keen-slider__slide min-w-fit max-w-fit"
+                  className="keen-slider__slide min-w-fit max-w-fit ease-in-out duration-150"
                   key={ad.id}
                 >
                   <GameAdsBox

@@ -5,7 +5,7 @@ import { GameBanner } from "./GameBanner";
 import { Carets } from "./Utils/Carets";
 import { Loading } from "./Utils/Loading";
 
-import { useKeenSlider } from "keen-slider/react";
+import { KeenSliderOptions, useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { api } from "../Services/api";
 
@@ -26,7 +26,7 @@ export function GamesAds() {
   const { pageLoaded, setIsLoading, isLoading, isDesktop } =
     useContext(AppContext);
 
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+  const sliderOptions: KeenSliderOptions = {
     initial: 0,
     breakpoints: {
       "(max-width: 640px )": {
@@ -45,19 +45,28 @@ export function GamesAds() {
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
+    animationEnded(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
     created() {
       setLoaded(true);
-      instanceRef.current?.update();
     },
-  });
+  };
+
+  const [sliderRef, instanceRef] = useKeenSlider(sliderOptions);
 
   useEffect(() => {
     api.get("/games").then((response) => {
       setGames(response.data);
       setIsLoading(true);
-      instanceRef.current?.update();
     });
   }, []);
+
+  useEffect(() => {
+    instanceRef.current?.update({
+      ...sliderOptions,
+    });
+  }, [instanceRef, sliderOptions]);
 
   return (
     <div
@@ -77,7 +86,10 @@ export function GamesAds() {
       <div ref={sliderRef} className="keen-slider">
         {games.map((game) => {
           return (
-            <div key={game.id} className="keen-slider__slide rounded-lg">
+            <div
+              key={game.id}
+              className="keen-slider__slide rounded-lg ease-in-out duration-150"
+            >
               <GameBanner
                 gameId={game.id}
                 bannerUrl={game.bannerUrl}
@@ -92,7 +104,7 @@ export function GamesAds() {
       {loaded && instanceRef.current && isDesktop && (
         <Carets
           disabled={
-            instanceRef.current?.size >= 1216
+            instanceRef.current?.size >= 1000
               ? currentSlide === instanceRef.current.slides.length - 5
               : currentSlide === instanceRef.current.slides.length - 3
           }

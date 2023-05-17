@@ -108,12 +108,12 @@ export const CreateAdModal: React.FC = () => {
 
   return (
     <FormProvider {...methods}>
-      <Dialog.Portal className="z-10">
-        <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
+      <Dialog.Portal className="z-50">
+        <Dialog.Overlay className="bg-black/60 inset-0 fixed z-50" />
         <Dialog.Content
           className="fixed w-[480px] bg-space-700 py-8 px-10 text-white top-1/2 left-1/2 
             -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg shadow-black/25
-            animate-content-show"
+            animate-content-show z-50"
         >
           <Dialog.Title className="text-3xl font-black">
             Publique um anúncio
