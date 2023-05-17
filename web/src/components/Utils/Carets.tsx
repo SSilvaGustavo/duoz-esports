@@ -12,14 +12,18 @@ export function Carets(props: ButtonProps) {
   const { left, leftCaretCustom, rightCaretCustom, ...rest } = props;
 
   return (
-    <button {...rest}>
+    <button {...rest} className="group">
       {props.left ? (
         <CaretLeft
-          className={`w-12 h-12 text-sky-200 ml-4 ${props.leftCaretCustom}`}
+          className={`w-10 h-auto text-sky-200 ml-4 ${
+            props.leftCaretCustom ?? ""
+          } lg:w-12 group-disabled:opacity-40`}
         />
       ) : (
         <CaretRight
-          className={`w-12 h-12 text-sky-200 mr-4 ${props.rightCaretCustom}`}
+          className={`w-10 h-auto text-sky-200 mr-4 ${
+            props.rightCaretCustom ?? ""
+          } lg:w-12 group-disabled:opacity-40`}
         />
       )}
     </button>

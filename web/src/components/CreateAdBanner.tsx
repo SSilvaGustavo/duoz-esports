@@ -17,15 +17,17 @@ export function CreateAdBanner({ open, setOpen }: CreateAdBannerProps) {
 
   return (
     <div
-      className={`pt-1 bg-neon-gradient self-stretch rounded-lg mt-8 overflow-hidden animate-gradient-x 
-      ${pageLoaded ? "" : "animate-[fade-in-top_0.5s_ease-in-out_both_0.5s]"}`}
+      className={`pt-1 mx-4 bg-neon-gradient self-stretch rounded-lg mt-8 overflow-hidden animate-gradient-x 
+      ${
+        pageLoaded ? "" : "animate-[fade-in-top_0.5s_ease-in-out_both_0.5s]"
+      } xl:mx-0`}
     >
-      <div className="bg-space-700 px-8 py-6 flex justify-between items-center">
+      <div className="bg-space-700 px-8 py-6 flex justify-between items-center flex-col md:flex-row">
         <div>
           <strong className="text-2xl text-white font-black block">
             Não encontrou seu duo?
           </strong>
-          <span className="text-zinc-400 block">
+          <span className="text-zinc-400 my-3 block md:my-0">
             Publique um anúncio para encontrar novos players!
           </span>
         </div>

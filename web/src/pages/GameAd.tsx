@@ -1,10 +1,11 @@
 import { AppContext } from "../components/Context/AppContext";
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
 import * as Dialog from "@radix-ui/react-dialog";
 
 import { GameController } from "phosphor-react";
+import logoImg from "../assets/logo-duoz.svg";
 
 import { SingleGameAd, SingleGameProps } from "../components/SingleGameAd";
 import { GameAdsBox, SingleAdProps } from "../components/GameAdsBox";
@@ -23,7 +24,7 @@ interface GameAdsProps extends SingleAdProps {}
 export function GameAd() {
   const [game, setGame] = useState<GameProps>();
   const [adInfos, setAdInfos] = useState<GameAdsProps[]>([]);
-  const { isLoading, setIsLoading } = useContext(AppContext);
+  const { isLoading, setIsLoading, isDesktop } = useContext(AppContext);
   const { gameId } = useParams<{ gameId: string }>();
   const navigate = useNavigate();
 
@@ -32,7 +33,20 @@ export function GameAd() {
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
-    slides: { origin: "auto", perView: 4.5, spacing: 26 },
+    breakpoints: {
+      "(max-width: 640px )": {
+        slides: { origin: "auto", perView: 1.25, spacing: 18 },
+      },
+      "(min-width: 768px )": {
+        slides: { origin: "auto", perView: 2.6, spacing: 18 },
+      },
+      "(min-width: 1024px )": {
+        slides: { origin: "auto", perView: 3, spacing: 26 },
+      },
+      "(min-width: 1280px )": {
+        slides: { origin: "auto", perView: 4.4, spacing: 26 },
+      },
+    },
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
@@ -56,17 +70,23 @@ export function GameAd() {
   }, []);
 
   return (
-    <div className="max-w-[1344px] mx-auto flex flex-col items-center my-20">
+    <div className="max-w-[1344px] mx-8 flex flex-col items-center my-10 md:my-20 xl:mx-auto">
       <Loading size={38} load={isLoading} />
-      <div className="flex flex-col place-items-center justify-center absolute top-6 left-6 group">
+      <div className="flex justify-center group md:flex-col">
         <Carets
           left
           onClick={() => navigate(-1)}
-          leftCaretCustom="hover:text-sky-400 transition-colors"
+          leftCaretCustom="hover:text-sky-400 transition-colors absolute top-[5%] md:top-[10%] left-0 lg:top-6 lg:left-6"
         />
-        <span className="ml-5 opacity-0 transition-all text-white text-sm group-hover:opacity-100">
-          Back
-        </span>
+        {!isDesktop ? (
+          <Fragment>
+            <div className="w-full flex justify-center items-center mb-14">
+              <img src={logoImg} alt="Project Logo" className="w-28" />
+            </div>
+          </Fragment>
+        ) : (
+          <Fragment></Fragment>
+        )}
       </div>
       <SingleGameAd
         bannerUrl={`${game?.bannerUrl}`}
@@ -76,14 +96,20 @@ export function GameAd() {
         platforms={`${game?.platforms}`}
       />
 
-      <div className="flex flex-col w-full place-items-center text-white gap-2 mt-24 mb-4 animate-fade-in-forward">
-        <h1 className="text-4xl font-bold">Bora duo?</h1>
-        <span className="text-gray-400 text-xl">
-          Conecte-se e comece a jogar!
-        </span>
-      </div>
+      {adInfos.length ? (
+        <Fragment>
+          <div className="flex flex-col mt-10 mb-2 w-full place-items-center text-white gap-2 animate-fade-in-forward md:mt-24 md:mb-4">
+            <h1 className="text-3xl font-bold md:text-4xl">Bora duo?</h1>
+            <span className="text-gray-400 text-lg md:text-xl">
+              Conecte-se e comece a jogar!
+            </span>
+          </div>
+        </Fragment>
+      ) : (
+        <Fragment></Fragment>
+      )}
       <div className="w-full flex">
-        {loaded && instanceRef.current && adInfos.length > 4 && (
+        {loaded && instanceRef.current && adInfos.length > 4 && isDesktop && (
           <Carets
             className="animate-[fade-in-forward_0.5s_ease-in-out_0.8s_both]"
             left={true}
@@ -91,19 +117,14 @@ export function GameAd() {
             onClick={(e: any) =>
               e.stopPropagation() || instanceRef.current?.prev()
             }
-            leftCaretCustom={
-              currentSlide === 0
-                ? "opacity-30"
-                : "opacity-100 hover:text-sky-400 transition-colors"
-            }
           />
         )}
-        <div className="flex gap-4 w-full">
+        <div className="flex w-full overflow-hidden">
           {adInfos.length ? (
             <div
               ref={sliderRef}
               className={`keen-slider ${
-                adInfos.length > 4 ? "" : "justify-center"
+                adInfos.length > 4 || isDesktop ? "" : "justify-center"
               }`}
             >
               {adInfos?.map((ad) => (
@@ -125,8 +146,8 @@ export function GameAd() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col w-full justify-center place-items-center text-gray-200 gap-4 mt-6 animate-fade-in-forward">
-              <span className="text-xl">
+            <div className="flex flex-col w-full justify-center place-items-center text-gray-200 gap-4 mt-14 animate-fade-in-forward md:mt-6 lg:mt-32">
+              <span className="text-lg md:text-xl">
                 Infelizmente ainda não temos anúncios, seja o primeiro a criar
                 :)
               </span>
@@ -140,17 +161,16 @@ export function GameAd() {
             </div>
           )}
         </div>
-        {loaded && instanceRef.current && adInfos.length > 4 && (
+        {loaded && instanceRef.current && adInfos.length > 4 && isDesktop && (
           <Carets
             className="animate-[fade-in-forward_0.5s_ease-in-out_0.8s_both]"
-            disabled={currentSlide === instanceRef.current.slides.length - 4}
+            disabled={
+              instanceRef.current?.size >= 1216
+                ? currentSlide === instanceRef.current.slides.length - 4
+                : currentSlide === instanceRef.current.slides.length - 3
+            }
             onClick={(e: any) =>
               e.stopPropagation() || instanceRef.current?.next()
-            }
-            rightCaretCustom={
-              currentSlide === instanceRef.current.slides.length - 4
-                ? "opacity-30"
-                : "opacity-100 hover:text-sky-400 transition-colors"
             }
           />
         )}

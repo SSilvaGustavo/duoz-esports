@@ -23,11 +23,25 @@ export function GamesAds() {
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const { pageLoaded, setIsLoading, isLoading } = useContext(AppContext);
+  const { pageLoaded, setIsLoading, isLoading, isDesktop } =
+    useContext(AppContext);
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
-    slides: { origin: "auto", perView: 5.5, spacing: 15 },
+    breakpoints: {
+      "(max-width: 640px )": {
+        slides: { origin: "auto", perView: 1.5, spacing: 18 },
+      },
+      "(min-width: 768px )": {
+        slides: { origin: "auto", perView: 3.5, spacing: 18 },
+      },
+      "(min-width: 1024px )": {
+        slides: { origin: "auto", perView: 3.5, spacing: 15 },
+      },
+      "(min-width: 1280px )": {
+        slides: { origin: "auto", perView: 5.5, spacing: 15 },
+      },
+    },
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
@@ -47,20 +61,16 @@ export function GamesAds() {
 
   return (
     <div
-      className={`w-full flex items-center gap-4 mt-16 
-      ${pageLoaded ? "" : "animate-[fade-in-down_0.5s_ease-in-out_0.5s_both]"}`}
+      className={`w-full flex items-center gap-4 mt-8 ${
+        pageLoaded ? "" : "animate-[fade-in-down_0.5s_ease-in-out_0.5s_both]"
+      } ${!isDesktop ? "ml-14" : ""} lg:mt-16`}
     >
-      {loaded && instanceRef.current && (
+      {loaded && instanceRef.current && isDesktop && (
         <Carets
           left={true}
           disabled={currentSlide === 0}
           onClick={(e: any) =>
             e.stopPropagation() || instanceRef.current?.prev()
-          }
-          leftCaretCustom={
-            currentSlide === 0
-              ? "opacity-30"
-              : "opacity-100 hover:text-sky-400 transition-colors"
           }
         />
       )}
@@ -79,16 +89,15 @@ export function GamesAds() {
         })}
         <Loading size={38} load={isLoading} />
       </div>
-      {loaded && instanceRef.current && (
+      {loaded && instanceRef.current && isDesktop && (
         <Carets
-          disabled={currentSlide === instanceRef.current.slides.length - 5}
+          disabled={
+            instanceRef.current?.size >= 1216
+              ? currentSlide === instanceRef.current.slides.length - 5
+              : currentSlide === instanceRef.current.slides.length - 3
+          }
           onClick={(e: any) =>
             e.stopPropagation() || instanceRef.current?.next()
-          }
-          rightCaretCustom={
-            currentSlide === instanceRef.current.slides.length - 5
-              ? "opacity-30"
-              : "opacity-100 hover:text-sky-400 transition-colors"
           }
         />
       )}

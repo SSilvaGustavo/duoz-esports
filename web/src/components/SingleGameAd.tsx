@@ -10,14 +10,14 @@ export function SingleGameAd(props: SingleGameProps) {
   const categories = props.categories?.split(",");
 
   return (
-    <div className="flex gap-20">
-      <div className="w-80 flex flex-col animate-[fade-in-left_0.5s_ease-in-out_both]">
+    <div className="flex gap-10 flex-col mx-4 md:flex-row md:gap-20">
+      <div className="flex flex-col items-center animate-[fade-in-left_0.5s_ease-in-out_both]">
         <img
-          className="w-full object-cover rounded shadow-lg"
+          className="w-full object-cover rounded-3xl md:w-80 xl:rounded-lg xl:shadow-lg"
           src={props.bannerUrl}
           alt=""
         />
-        <div className="flex justify-evenly gap-3 mt-2">
+        <div className="flex gap-8 mt-2">
           {categories?.map((category) => {
             return (
               <span
@@ -33,11 +33,11 @@ export function SingleGameAd(props: SingleGameProps) {
       </div>
       <div className="flex flex-1 flex-col text-white tracking-tight animate-fade-in-forward">
         <div className="flex place-items-center justify-center mb-6">
-          <h1 className="font-semibold text-5xl">{props.title}</h1>
+          <h1 className="font-semibold text-3xl md:text-5xl">{props.title}</h1>
         </div>
         <div className="flex flex-col gap-3">
-          <span>{props.description}</span>
-          <span className="text-sm font-semibold text-gray-400">
+          <span className="text-sm md:text-md">{props.description}</span>
+          <span className="text-xs font-semibold text-gray-400 md:text-sm">
             Plataformas: {props.platforms}
           </span>
         </div>

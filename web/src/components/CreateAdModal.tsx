@@ -72,7 +72,8 @@ export const CreateAdModal: React.FC = () => {
         useVoiceChannel,
       });
       toast.update(toastLoading, {
-        render: "Anúncio criado com sucesso, você sera redirecionado para a página do game escolhido",
+        render:
+          "Anúncio criado com sucesso, você sera redirecionado para a página do game escolhido",
         type: "success",
         isLoading: false,
         autoClose: 3200,
@@ -107,7 +108,7 @@ export const CreateAdModal: React.FC = () => {
 
   return (
     <FormProvider {...methods}>
-      <Dialog.Portal>
+      <Dialog.Portal className="z-10">
         <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
         <Dialog.Content
           className="fixed w-[480px] bg-space-700 py-8 px-10 text-white top-1/2 left-1/2 
@@ -123,9 +124,7 @@ export const CreateAdModal: React.FC = () => {
             className="mt-8 flex flex-col gap-4"
           >
             <div className="flex flex-col gap-2">
-              <label htmlFor="game" className="font-semibold">
-                Qual o game
-              </label>
+              <label className="font-semibold">Qual o game</label>
             </div>
             <Controller
               name="game"
@@ -141,7 +140,7 @@ export const CreateAdModal: React.FC = () => {
               )}
             />
             <div className="flex flex-col gap-2 relative">
-              <label htmlFor="name">Seu nome (ou nickname)</label>
+              <label>Seu nome (ou nickname)</label>
               <Input
                 id="name"
                 type="text"
@@ -152,7 +151,7 @@ export const CreateAdModal: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-4 relative">
               <div className="flex flex-col gap-2">
-                <label htmlFor="yearsPlaying">Joga a quantos anos?</label>
+                <label>Joga a quantos anos?</label>
                 <Input
                   id="yearsPlaying"
                   type="number"
@@ -162,7 +161,7 @@ export const CreateAdModal: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label htmlFor="discord">Qual o seu discord?</label>
+                <label>Qual o seu discord?</label>
                 <Input
                   id="Discord"
                   type="text"
@@ -175,10 +174,7 @@ export const CreateAdModal: React.FC = () => {
 
             <div className="flex gap-6">
               <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="weekDays"
-                  className="text-sm font-semibold sm:text-base"
-                >
+                <label className="text-sm font-semibold sm:text-base">
                   Quando costuma jogar?
                 </label>
                 <WeekdaysInput
@@ -188,7 +184,7 @@ export const CreateAdModal: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col gap-2 flex-1">
-                <label htmlFor="hourStart">Qual horario?</label>
+                <label>Qual horario?</label>
                 <div className="grid grid-cols-2 gap-2 relative">
                   <Input
                     id="hourStart"
@@ -197,7 +193,6 @@ export const CreateAdModal: React.FC = () => {
                     customClass="px-2"
                     {...register("hourStart")}
                     errorMessage={errors.hourStart?.message}
-                    className=""
                   />
                   <Input
                     id="hourEnd"
