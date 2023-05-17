@@ -1,7 +1,7 @@
 import { AppContext } from "../components/Context/AppContext";
 import { Fragment, useContext, useEffect, useState } from "react";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import * as Dialog from "@radix-ui/react-dialog";
 
 import { GameController } from "phosphor-react";
@@ -47,15 +47,34 @@ export function GameAd() {
         slides: { origin: "auto", perView: 4.4, spacing: 26 },
       },
     },
+    animationEnded(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
+  };
+
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+    initial: 0,
+    breakpoints: {
+      "(max-width: 640px )": {
+        slides: { origin: "auto", perView: 1.25, spacing: 18 },
+      },
+      "(min-width: 768px )": {
+        slides: { origin: "auto", perView: 2.6, spacing: 18 },
+      },
+      "(min-width: 1024px )": {
+        slides: { origin: "auto", perView: 3, spacing: 26 },
+      },
+      "(min-width: 1280px )": {
+        slides: { origin: "auto", perView: 4.4, spacing: 26 },
+      },
+    },
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
     created() {
       setLoaded(true);
     },
-  };
-
-  const [sliderRef, instanceRef] = useKeenSlider(sliderOptions);
+  });
 
   useEffect(() => {
     api.get(`/games/${gameId}`).then((response) => {
@@ -86,11 +105,13 @@ export function GameAd() {
           leftCaretCustom="hover:text-sky-400 transition-colors absolute top-[5%] md:top-[10%] left-0 lg:top-6 lg:left-6"
         />
         {!isDesktop ? (
-          <Fragment>
-            <div className="w-full flex justify-center items-center mb-14">
-              <img src={logoImg} alt="Project Logo" className="w-28" />
-            </div>
-          </Fragment>
+          <Link to={"/"}>
+            <Fragment>
+              <div className="w-full flex justify-center items-center mb-14">
+                <img src={logoImg} alt="Project Logo" className="w-28" />
+              </div>
+            </Fragment>
+          </Link>
         ) : (
           <Fragment></Fragment>
         )}

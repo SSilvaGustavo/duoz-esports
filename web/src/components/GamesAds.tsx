@@ -42,6 +42,9 @@ export function GamesAds() {
         slides: { origin: "auto", perView: 5.5, spacing: 15 },
       },
     },
+    animationEnded(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
   };
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
