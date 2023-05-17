@@ -7,7 +7,7 @@ import { Loading } from "./Utils/Loading";
 
 import { KeenSliderOptions, useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { api } from "../services/api";
+import { api } from "../Services/api";
 
 interface Game {
   id: string;
