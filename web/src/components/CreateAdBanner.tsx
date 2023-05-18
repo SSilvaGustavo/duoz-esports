@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import { AppContext } from "./Context/AppContext";
 
 import * as Dialog from "@radix-ui/react-dialog";
@@ -13,7 +13,7 @@ interface CreateAdBannerProps {
 }
 
 export function CreateAdBanner({ open, setOpen }: CreateAdBannerProps) {
-  const { pageLoaded } = useContext(AppContext);
+  const { pageLoaded, isMobile } = useContext(AppContext);
 
   return (
     <div
@@ -24,12 +24,16 @@ export function CreateAdBanner({ open, setOpen }: CreateAdBannerProps) {
     >
       <div className="bg-space-700 px-8 py-6 flex justify-between items-center flex-col md:flex-row">
         <div>
-          <strong className="text-2xl text-white font-black block">
+          <strong className="text-2xl text-white font-black block mb-5 md:mb-0">
             Não encontrou seu duo?
           </strong>
-          <span className="text-zinc-400 my-3 block md:my-0">
-            Publique um anúncio para encontrar novos players!
-          </span>
+          {isMobile ? (
+            <span className="text-zinc-400 my-3 block md:my-0">
+              Publique um anúncio para encontrar novos players!
+            </span>
+          ) : (
+            <Fragment></Fragment>
+          )}
         </div>
         <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger className="flex items-center gap-3 py-3 px-4 text-white rounded bg-space-400 hover:bg-space-500 transition-colors">

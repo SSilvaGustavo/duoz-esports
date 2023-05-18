@@ -75,13 +75,9 @@ export function Home() {
         <></>
       )}
       <GamesAds />
-      {isMobile ? (
-        <Dialog.Root>
-          <CreateAdBanner open={isAdModalOpen} setOpen={setIsAdModalOpen} />
-        </Dialog.Root>
-      ) : (
-        <></>
-      )}
+      <Dialog.Root>
+        <CreateAdBanner open={isAdModalOpen} setOpen={setIsAdModalOpen} />
+      </Dialog.Root>
     </div>
   );
 }
