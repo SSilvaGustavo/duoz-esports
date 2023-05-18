@@ -137,13 +137,17 @@ export function GameAd() {
         <Fragment>
           <div className="flex flex-col mt-10 mb-2 w-full place-items-center text-white gap-2 animate-fade-in-forward md:mt-24 md:mb-4">
             <h1
-              className={`text-3xl font-bold md:text-4xl ${
-                isAdModalOpen ? "hidden" : ""
-              }`}
+              className={`
+                  text-3xl font-bold md:text-4xl 
+                  ${ isAdModalOpen ? "hidden" : "" }
+                `}
             >
               Bora duo?
             </h1>
-            <span className="text-gray-400 text-lg md:text-xl">
+            <span className={`
+            text-gray-400 text-lg md:text-xl
+              ${ isAdModalOpen ? "hidden" : "" }
+            `}>
               Conecte-se e comece a jogar!
             </span>
           </div>
