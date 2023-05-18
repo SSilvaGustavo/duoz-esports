@@ -157,7 +157,7 @@ export function GameAd() {
             >
               {adInfos?.map((ad) => (
                 <div
-                  className="keen-slider__slide min-w-fit max-w-fit ease-in-out duration-150"
+                  className="keen-slider__slide min-w-fit max-w-fit"
                   key={ad.id}
                 >
                   <GameAdsBox
