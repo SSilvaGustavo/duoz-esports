@@ -18,7 +18,7 @@ export function DiscordBox({ discord, name }: DiscordProps) {
   };
 
   return (
-    <Dialog.Portal className="z-50">
+    <Dialog.Portal>
       <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
       <Dialog.Content
         className="fixed w-96 bg-space-700 py-8 px-10 text-white top-1/2 left-1/2 

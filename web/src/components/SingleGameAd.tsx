@@ -31,7 +31,7 @@ export function SingleGameAd(props: SingleGameProps) {
           })}
         </div>
       </div>
-      <div className="flex flex-1 flex-col text-white tracking-tight animate-fade-in-forward z-10">
+      <div className="flex flex-1 flex-col text-white tracking-tight animate-fade-in-forward">
         <div className="flex place-items-center justify-center mb-6">
           <h1 className="font-semibold text-3xl md:text-5xl">{props.title}</h1>
         </div>
