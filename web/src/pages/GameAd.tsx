@@ -24,7 +24,14 @@ interface GameAdsProps extends SingleAdProps {}
 export function GameAd() {
   const [game, setGame] = useState<GameProps>();
   const [adInfos, setAdInfos] = useState<GameAdsProps[]>([]);
-  const { isLoading, setIsLoading, isDesktop } = useContext(AppContext);
+  const {
+    isLoading,
+    setIsLoading,
+    isDesktop,
+    setIsAdModalOpen,
+    isAdModalOpen,
+    isMobile,
+  } = useContext(AppContext);
   const { gameId } = useParams<{ gameId: string }>();
   const navigate = useNavigate();
 
@@ -95,6 +102,8 @@ export function GameAd() {
     });
   }, [instanceRef, sliderOptions]);
 
+  console.log(adInfos.length);
+
   return (
     <div className="max-w-[1344px] mx-8 flex flex-col items-center my-10 md:my-20 xl:mx-auto">
       <Loading size={38} load={isLoading} />
@@ -127,7 +136,13 @@ export function GameAd() {
       {adInfos.length ? (
         <Fragment>
           <div className="flex flex-col mt-10 mb-2 w-full place-items-center text-white gap-2 animate-fade-in-forward md:mt-24 md:mb-4">
-            <h1 className="text-3xl font-bold md:text-4xl">Bora duo?</h1>
+            <h1
+              className={`text-3xl font-bold md:text-4xl ${
+                isAdModalOpen ? "hidden" : ""
+              }`}
+            >
+              Bora duo?
+            </h1>
             <span className="text-gray-400 text-lg md:text-xl">
               Conecte-se e comece a jogar!
             </span>
@@ -152,7 +167,9 @@ export function GameAd() {
             <div
               ref={sliderRef}
               className={`keen-slider ${
-                adInfos.length > 4 || isDesktop ? "justify-center" : ""
+                adInfos.length < 5 && isDesktop
+                  ? "justify-center"
+                  : "justify-start"
               }`}
             >
               {adInfos?.map((ad) => (
@@ -175,11 +192,11 @@ export function GameAd() {
             </div>
           ) : (
             <div className="flex flex-col w-full justify-center place-items-center text-gray-200 gap-4 mt-14 animate-fade-in-forward md:mt-6 lg:mt-32">
-              <span className="text-lg md:text-xl">
+              <span className="text-lg text-center md:text-xl">
                 Infelizmente ainda não temos anúncios, seja o primeiro a criar
                 :)
               </span>
-              <Dialog.Root>
+              <Dialog.Root onOpenChange={(open) => setIsAdModalOpen(open)}>
                 <Dialog.Trigger className="flex items-center gap-3 py-3 px-4 text-white rounded bg-space-400 hover:bg-space-500 transition-colors">
                   <GameController size={24} />
                   Publicar Anúncio

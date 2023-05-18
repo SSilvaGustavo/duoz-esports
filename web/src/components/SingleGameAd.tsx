@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { AppContext } from "./Context/AppContext";
+
 export interface SingleGameProps {
   bannerUrl: string;
   title: string;
@@ -7,6 +10,7 @@ export interface SingleGameProps {
 }
 
 export function SingleGameAd(props: SingleGameProps) {
+  const { isAdModalOpen } = useContext(AppContext);
   const categories = props.categories?.split(",");
 
   return (
@@ -31,7 +35,11 @@ export function SingleGameAd(props: SingleGameProps) {
           })}
         </div>
       </div>
-      <div className="flex flex-1 flex-col text-white tracking-tight animate-fade-in-forward">
+      <div
+        className={`flex flex-1 flex-col text-white tracking-tight animate-fade-in-forward z-10 ${
+          isAdModalOpen ? "hidden" : ""
+        }`}
+      >
         <div className="flex place-items-center justify-center mb-6">
           <h1 className="font-semibold text-3xl md:text-5xl">{props.title}</h1>
         </div>
