@@ -152,7 +152,7 @@ export function GameAd() {
             <div
               ref={sliderRef}
               className={`keen-slider ${
-                adInfos.length > 4 || isDesktop ? "" : "justify-center"
+                adInfos.length > 4 || isDesktop ? "justify-center" : ""
               }`}
             >
               {adInfos?.map((ad) => (
