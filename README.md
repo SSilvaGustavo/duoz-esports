@@ -212,7 +212,7 @@ This project is under the **MIT** license. See the _**LICENSE**_ file for more d
 ---
 
 <h5 align="center">
-  &copy;2022 - <a href="https://github.com/SSilvaGustavo/">Gustavo Silva</a>
+  &copy;2023 - <a href="https://github.com/SSilvaGustavo/">Gustavo Silva</a>
 </h5>
 
 <a href='#top'>🔼 Back to top</a>
