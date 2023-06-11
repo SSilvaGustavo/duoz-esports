@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { GameAd } from "./pages/GameAd";
-import { NotFound } from "./pages/404";
+import { NotFound } from "./404";
 
 export function Router() {
   return (

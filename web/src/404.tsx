@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import valorantChar1 from "../assets/valorant-char1.gif";
-import valorantChar2 from "../assets/valorant-char2.gif";
+import valorantChar1 from "./assets/valorant-char1.gif";
+import valorantChar2 from "./assets/valorant-char2.gif";
 import { ArrowRight } from "phosphor-react";
 import { Fragment, useContext } from "react";
-import { AppContext } from "../components/Context/AppContext";
+import { AppContext } from "./components/Context/AppContext";
 
 export function NotFound() {
   const { isMobile, isDesktop } = useContext(AppContext);
