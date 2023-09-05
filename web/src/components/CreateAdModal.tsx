@@ -165,7 +165,7 @@ export const CreateAdModal: React.FC = () => {
                 <Input
                   id="Discord"
                   type="text"
-                  placeholder="Usuario#0000"
+                  placeholder="Seu usuario"
                   {...register("discord")}
                   errorMessage={errors.discord?.message}
                 />

@@ -1,7 +1,5 @@
 import * as z from 'zod';
 
-const discordValidation = new RegExp('^.{3,32}#[0-9]{4}$')
-
 export const createAdFormSchema = z.object({
   game:
     z.string({ required_error: "Selecione um jogo" })
@@ -26,8 +24,7 @@ export const createAdFormSchema = z.object({
     .min(1, "Selecione pelo menos um dia para jogar")
     .max(7, "Selecione até 7 dias para jogar"),
 
-  discord: z.string({ required_error: "Preencha seu discord" })
-    .regex(discordValidation, { message: "Discord invalido, use este padrão: Usuário#0000" }),
+  discord: z.string({ required_error: "Preencha seu discord" }).nonempty("Preencha seu discord"),
 
   hourStart:
     z.string({ required_error: "Informe o horário que voce começa a jogar" }).nonempty("Selecione o horário de inicio"),
